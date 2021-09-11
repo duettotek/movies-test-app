@@ -1,0 +1,13 @@
+# Represents a Movie
+type Movie {
+  id: ID
+  title: String
+  plot: String
+}
+
+# Query any Movie by number or name
+type Query {
+  query: Query
+  allMovies: [Movie]
+  movie(id: Int, title: String): Movie
+}
