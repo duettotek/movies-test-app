@@ -3,11 +3,16 @@ type Movie {
   id: ID
   title: String
   plot: String
+  year: String
+  runtime: Int
+  genres: [String]
+  director: String
+  actors: String
+  posterUrl: String
 }
 
 # Query any Movie by number or name
 type Query {
   query: Query
   allMovies: [Movie]
-  movie(id: Int, title: String): Movie
 }
