@@ -16,7 +16,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-import { MovieDetails_movie } from "../__generated__/MovieDetails_movie.graphql";
+import { MovieItem_movie } from "../__generated__/MovieItem_movie.graphql";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  movie: MovieDetails_movie | null;
+  movie: MovieItem_movie | null;
 }
 
 export default function MovieReviewCard({ movie }: Props) {
@@ -69,7 +69,7 @@ export default function MovieReviewCard({ movie }: Props) {
           </IconButton>
         }
         title={movie?.title}
-        subheader={movie?.year}
+        subheader={movie?.title}
       />
       <CardMedia
         className={classes.media}
@@ -78,7 +78,7 @@ export default function MovieReviewCard({ movie }: Props) {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {movie?.plot}
+          {movie?.title}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

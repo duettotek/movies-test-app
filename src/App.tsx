@@ -5,7 +5,7 @@ import { QueryRenderer } from 'react-relay';
 import { graphql } from 'babel-plugin-relay/macro';
 
 const query = graphql`
-  query AppQuery{
+  query AppQuery($first: Int!){
     ...MovieList_query
   }
 `

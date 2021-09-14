@@ -1,24 +1,23 @@
 import React from "react";
-import { MovieDetails_movie } from "./__generated__/MovieDetails_movie.graphql";
+import { MovieItem_movie } from "./__generated__/MovieItem_movie.graphql";
 import { createFragmentContainer } from "react-relay";
 import { graphql } from "babel-plugin-relay/macro";
 import MovieReviewCard from "./components/MovieReviewCard";
 
 interface Props {
-  movie: MovieDetails_movie | null;
+  movie: MovieItem_movie | null;
 }
 
-function MovieDetails({ movie }: Props) {
+function MovieItem({ movie }: Props) {
   if (!movie) {
     return <div></div>;
   }
-  //return <MovieReviewCard movie={movie}></MovieReviewCard>;
-  return <div></div>
+  return <MovieReviewCard movie={movie}></MovieReviewCard>;
 }
 
-export default createFragmentContainer(MovieDetails, {
+export default createFragmentContainer(MovieItem, {
   movie: graphql`
-    fragment MovieDetails_movie on Movie {
+    fragment MovieItem_movie on Movie {
       id
       title
       backdrop(size: W300)

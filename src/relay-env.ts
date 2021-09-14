@@ -7,21 +7,8 @@ import {
   Variables,
 } from "relay-runtime";
 
-/*function fetchQuery(operation: RequestParameters, variables: Variables) {
-  return fetch("data/movies.json", {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then(function (response) {
-    console.log(response);
-    return response.json();
-  }).then(function(myJson) {
-    console.log(myJson);
-    return myJson;
-  });
-}*/
-const url = 'http://localhost:5000/graphql'
+
+const url = 'https://tmdb.apps.quintero.io/'
 
 function fetchQuery(
   operation: RequestParameters,
