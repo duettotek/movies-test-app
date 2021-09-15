@@ -7,6 +7,8 @@ import InfoIcon from "@material-ui/icons/Info";
 import Moment from "react-moment";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarIcon from "@material-ui/icons/Star";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import MovieDetails from "../fragments/MovieDetails";
 
 import { MovieItem_movie } from "../fragments/__generated__/MovieItem_movie.graphql";
@@ -18,6 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     bar: {
       height: 90,
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
     },
   })
 );
@@ -47,7 +53,13 @@ export default function MovieImage({ movie }: Props) {
   }
 
   return (
-    <Suspense fallback={<div>Loading..</div>}>
+    <Suspense
+      fallback={
+        <Backdrop className={classes.backdrop} open={true}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      }
+    >
       <ImageListItem key={movie?.backdrop}>
         <img src={movie?.backdrop} alt={movie?.title} />
         <ImageListItemBar
