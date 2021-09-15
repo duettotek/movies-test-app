@@ -7,8 +7,6 @@ import MovieList from "./fragments/MovieList";
 import MovieAppBar from "./components/MovieAppBar";
 import MovieBottonBar from "./components/MovieBottonBar";
 
-import { Suspense } from "react";
-
 export const query = graphql`
   query AppQuery($first: Int!, $last: Int!) {
     ...MovieList_query
@@ -20,7 +18,7 @@ interface Props {
 }
 
 function App() {
-  const [page, setPage] = useState({ first: 10, last: 10 });
+  const [page, setPage] = useState({ first: 12, last: 12 });
 
   const setPageCallback = (first: number, last: number) => {
     console.log(first + last);
@@ -28,28 +26,26 @@ function App() {
   };
 
   return (
-    <Suspense fallback={<div>Loading..</div>}>
-      <QueryRenderer
-        environment={environment as any}
-        query={query}
-        render={({ error, props }: Props) => {
-          if (error) {
-            return <div>Error!</div>;
-          }
-          if (!props) {
-            return <div>Loading..</div>;
-          }
-          return (
-            <>
-              <MovieAppBar></MovieAppBar>
-              <MovieList query={props} setPage={setPageCallback}></MovieList>
-              <MovieBottonBar></MovieBottonBar>
-            </>
-          );
-        }}
-        variables={{ first: page.first, last: page.last }}
-      />
-    </Suspense>
+    <QueryRenderer
+      environment={environment as any}
+      query={query}
+      render={({ error, props }: Props) => {
+        if (error) {
+          return <div>Error!</div>;
+        }
+        if (!props) {
+          return <div>Loading..</div>;
+        }
+        return (
+          <>
+            <MovieAppBar></MovieAppBar>
+            <MovieList query={props} setPage={setPageCallback}></MovieList>
+            <MovieBottonBar></MovieBottonBar>
+          </>
+        );
+      }}
+      variables={{ first: page.first, last: page.last }}
+    />
   );
 }
 

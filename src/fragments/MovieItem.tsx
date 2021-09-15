@@ -22,6 +22,7 @@ export default createFragmentContainer(MovieItem, {
       title
       backdrop(size: W300)
       releaseDate
+      rating
     }
   `,
 });

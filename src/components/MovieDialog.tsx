@@ -70,20 +70,18 @@ export default function MovieDialog({ movie, handleClickClose }: Props) {
   };
 
   return (
-    <div>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {movie.title}
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>{movie.tagline}</Typography>
-          <Typography gutterBottom>{movie.overview}</Typography>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <Dialog
+      onClose={handleClose}
+      aria-labelledby="customized-dialog-title"
+      open={open}
+    >
+      <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+        {movie.title}
+      </DialogTitle>
+      <DialogContent dividers>
+        <Typography gutterBottom>{movie.tagline}</Typography>
+        <Typography gutterBottom>{movie.overview}</Typography>
+      </DialogContent>
+    </Dialog>
   );
 }
