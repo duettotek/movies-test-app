@@ -4,8 +4,7 @@ import MovieDetails from "./MovieDetails";
 import { MovieList_query } from "./__generated__/MovieList_query.graphql";
 import { createFragmentContainer } from "react-relay";
 import { graphql } from "babel-plugin-relay/macro";
-import MovieItem from "./MovieItem";
-import MovieImageList from "./components/MovieImageList";
+import MovieImageList from "../components/MovieImageList";
 import { MovieItem_movie } from "./__generated__/MovieItem_movie.graphql";
 
 interface Props {

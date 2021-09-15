@@ -16,7 +16,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-import { MovieItem_movie } from "../__generated__/MovieItem_movie.graphql";
+import { MovieItem_movie } from "../fragments/__generated__/MovieItem_movie.graphql";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

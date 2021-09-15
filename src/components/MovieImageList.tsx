@@ -3,9 +3,9 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import MovieItem from "../MovieItem";
-import { MovieItem_movie } from "../__generated__/MovieItem_movie.graphql";
-import { MovieList_query } from "../__generated__/MovieList_query.graphql";
+import MovieItem from "../fragments/MovieItem";
+import { MovieItem_movie } from "../fragments/__generated__/MovieItem_movie.graphql";
+import { MovieList_query } from "../fragments/__generated__/MovieList_query.graphql";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

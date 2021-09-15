@@ -3,7 +3,7 @@ import environment from "./relay-env";
 import { QueryRenderer } from "react-relay";
 import { graphql } from "babel-plugin-relay/macro";
 
-import MovieList from "./MovieList";
+import MovieList from "./fragments/MovieList";
 import MovieAppBar from "./components/MovieAppBar";
 import MovieBottonBar from "./components/MovieBottonBar";
 

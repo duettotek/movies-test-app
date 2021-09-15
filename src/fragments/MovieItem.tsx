@@ -2,7 +2,7 @@ import React from "react";
 import { MovieItem_movie } from "./__generated__/MovieItem_movie.graphql";
 import { createFragmentContainer } from "react-relay";
 import { graphql } from "babel-plugin-relay/macro";
-import MovieImage from "./components/MovieImage";
+import MovieImage from "../components/MovieImage";
 
 interface Props {
   movie: MovieItem_movie | null;

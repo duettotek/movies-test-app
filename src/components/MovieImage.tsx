@@ -5,7 +5,7 @@ import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 
-import { MovieItem_movie } from "../__generated__/MovieItem_movie.graphql";
+import { MovieItem_movie } from "../fragments/__generated__/MovieItem_movie.graphql";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
