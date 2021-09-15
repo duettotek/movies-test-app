@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
     },
     imageList: {
-      width: 700,
+      width: 900,
     },
   })
 );
@@ -26,7 +26,7 @@ interface Props {
   movies: any[];
 }
 
-export default function TitlebarImageList({ movies }: Props) {
+export default function MovieImageList({ movies }: Props) {
   const classes = useStyles();
 
   if (!movies) {

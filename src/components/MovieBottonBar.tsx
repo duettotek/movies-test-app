@@ -32,17 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
     appBar: {
       top: 'auto',
       bottom: 0,
-    },
-    grow: {
-      flexGrow: 1,
-    },
-    fabButton: {
-      position: 'absolute',
-      zIndex: 1,
-      top: -30,
-      left: 0,
-      right: 0,
-      margin: '0 auto',
+      height: 50,
     },
   }),
 );
@@ -55,10 +45,6 @@ export default function MovieBottonBar() {
       <CssBaseline />
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
-          <Fab color="secondary" aria-label="add" className={classes.fabButton}>
-            <AddIcon />
-          </Fab>
-          <div className={classes.grow} />
         </Toolbar>
       </AppBar>
     </React.Fragment>
