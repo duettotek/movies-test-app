@@ -1,32 +1,32 @@
-import React from "react";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
-import ImageList from "@material-ui/core/ImageList";
-import ImageListItem from "@material-ui/core/ImageListItem";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import MovieItem from "../fragments/MovieItem";
-import { MovieItem_movie } from "../fragments/__generated__/MovieItem_movie.graphql";
-import { MovieList_query } from "../fragments/__generated__/MovieList_query.graphql";
+import { Fab, Grid, Paper } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "space-around",
-      overflow: "hidden",
-      backgroundColor: theme.palette.background.paper,
+      flexGrow: 1,
+      padding: 50,
     },
-    imageList: {
-      width: 900,
+    paper: {
+      padding: theme.spacing(1),
+      textAlign: "center",
+      color: theme.palette.text.secondary,
+      width: 300,
+    },
+    margin: {
+      margin: theme.spacing(1),
     },
   })
 );
 
 interface Props {
   movies: any[];
+  setPage: (first: number, last: number) => void;
 }
 
-export default function MovieImageList({ movies }: Props) {
+export default function MovieImageList({ movies, setPage }: Props) {
   const classes = useStyles();
 
   if (!movies) {
@@ -35,13 +35,36 @@ export default function MovieImageList({ movies }: Props) {
 
   return (
     <div className={classes.root}>
-      <ImageList rowHeight={180} className={classes.imageList}>
-        <ImageListItem key="Subheader" cols={3} style={{ height: "auto" }}>
-        </ImageListItem>
+      <Grid container spacing={1}>
         {movies.map((movie) =>
-          movie ? <MovieItem movie={movie} /> : null
+          movie ? (
+            <Grid container item xs={4} spacing={1}>
+              <Grid
+                item
+                xs={12}
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Paper className={classes.paper}>
+                  <MovieItem movie={movie} />
+                </Paper>
+              </Grid>
+            </Grid>
+          ) : null
         )}
-      </ImageList>
+      </Grid>
+      <Fab
+        color="secondary"
+        aria-label="add"
+        className={classes.margin}
+        onClick={() => {
+          setPage(20, 10);
+        }}
+      >
+        <AddIcon />
+      </Fab>
     </div>
   );
 }

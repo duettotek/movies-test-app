@@ -1,17 +1,14 @@
-//import PokemonDetails from './PokemonDetails';
-import React from "react";
-import MovieDetails from "./MovieDetails";
 import { MovieList_query } from "./__generated__/MovieList_query.graphql";
 import { createFragmentContainer } from "react-relay";
 import { graphql } from "babel-plugin-relay/macro";
 import MovieImageList from "../components/MovieImageList";
-import { MovieItem_movie } from "./__generated__/MovieItem_movie.graphql";
 
 interface Props {
   query: MovieList_query | null;
+  setPage: (first: number, last: number) => void;
 }
 
-function MovieList({ query }: Props) {
+function MovieList({ query, setPage }: Props) {
   if (!query) {
     return <div>Error query</div>;
   }
@@ -21,16 +18,9 @@ function MovieList({ query }: Props) {
     return <div>Error movies</div>;
   }
 
-  const movieArray = Array.from(movies.trending.edges, (node) => (node?.node));
+  const movieArray = Array.from(movies.trending.edges, (node) => node?.node);
 
-  return (
-    /*<>
-      {movies.trending.edges.map((movie) =>
-        movie && movie.node ? <MovieItem movie={movie.node} /> : null
-      )}
-    </>*/
-    <MovieImageList movies={movieArray} />
-  );
+  return <MovieImageList movies={movieArray} setPage={setPage} />;
 }
 
 export default createFragmentContainer(MovieList, {

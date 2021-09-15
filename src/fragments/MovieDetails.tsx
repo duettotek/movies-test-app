@@ -1,27 +1,34 @@
-import React from "react";
-import { MovieDetails_movie } from "./__generated__/MovieDetails_movie.graphql";
-import { createFragmentContainer } from "react-relay";
+import { useLazyLoadQuery } from "react-relay";
 import { graphql } from "babel-plugin-relay/macro";
-import MovieReviewCard from "../components/MovieReviewCard";
+import MovieDialog from "../components/MovieDialog";
+import { MovieDetailsQuery } from "../fragments/__generated__/MovieDetailsQuery.graphql";
 
 interface Props {
-  movie: MovieDetails_movie | null;
+  id: string;
+  handleClickClose: () => void;
 }
 
-function MovieDetails({ movie }: Props) {
-  if (!movie) {
-    return <div></div>;
-  }
-  //return <MovieReviewCard movie={movie}></MovieReviewCard>;
-  return <div></div>
-}
+export default function MovieDetails({ id, handleClickClose }: Props) {
+  const data = useLazyLoadQuery<MovieDetailsQuery>(
+    graphql`
+      query MovieDetailsQuery($id: ID!) {
+        movies {
+          movie(id: $id) {
+            title
+            overview
+            tagline
+          }
+        }
+      }
+    `,
+    { id: id },
+    { fetchPolicy: "store-or-network" }
+  );
 
-export default createFragmentContainer(MovieDetails, {
-  movie: graphql`
-    fragment MovieDetails_movie on Movie {
-      id
-      title
-      backdrop(size: W300)
-    }
-  `,
-});
+  return (
+    <MovieDialog
+      movie={data.movies.movie}
+      handleClickClose={handleClickClose}
+    />
+  );
+}
