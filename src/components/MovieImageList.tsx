@@ -1,7 +1,8 @@
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import MovieItem from "../fragments/MovieItem";
 import { Fab, Grid, Paper } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,20 +18,39 @@ const useStyles = makeStyles((theme: Theme) =>
     margin: {
       margin: theme.spacing(1),
     },
+    fabRight: {
+      position: "fixed",
+      bottom: theme.spacing(8),
+      right: theme.spacing(2),
+    },
+    fabLeft: {
+      position: "fixed",
+      bottom: theme.spacing(8),
+      left: theme.spacing(2),
+    },
   })
 );
 
 interface Props {
   movies: any[];
   setPage: (first: number, last: number) => void;
+  page: { first: number; last: number };
 }
 
-export default function MovieImageList({ movies, setPage }: Props) {
+export default function MovieImageList({ movies, setPage, page }: Props) {
   const classes = useStyles();
 
   if (!movies) {
     return <div>Error movies</div>;
   }
+
+  const right = () => {
+    setPage(page.first + 12, 12);
+  };
+
+  const left = () => {
+    setPage(page.first - 12, 12);
+  };
 
   return (
     <div className={classes.root}>
@@ -54,15 +74,26 @@ export default function MovieImageList({ movies, setPage }: Props) {
           ) : null
         )}
       </Grid>
+      {page.first > 12 ? (
+        <Fab
+          color="secondary"
+          aria-label="add"
+          className={classes.fabLeft}
+          onClick={left}
+        >
+          <ChevronLeftIcon />
+        </Fab>
+      ) : (
+        <div></div>
+      )}
+
       <Fab
         color="secondary"
         aria-label="add"
-        className={classes.margin}
-        onClick={() => {
-          setPage(20, 10);
-        }}
+        className={classes.fabRight}
+        onClick={right}
       >
-        <AddIcon />
+        <ChevronRightIcon />
       </Fab>
     </div>
   );

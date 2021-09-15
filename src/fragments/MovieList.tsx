@@ -6,9 +6,10 @@ import MovieImageList from "../components/MovieImageList";
 interface Props {
   query: MovieList_query | null;
   setPage: (first: number, last: number) => void;
+  page: { first: number; last: number };
 }
 
-function MovieList({ query, setPage }: Props) {
+function MovieList({ query, setPage, page }: Props) {
   if (!query) {
     return <div>Error query</div>;
   }
@@ -20,7 +21,7 @@ function MovieList({ query, setPage }: Props) {
 
   const movieArray = Array.from(movies.trending.edges, (node) => node?.node);
 
-  return <MovieImageList movies={movieArray} setPage={setPage} />;
+  return <MovieImageList movies={movieArray} setPage={setPage} page={page} />;
 }
 
 export default createFragmentContainer(MovieList, {

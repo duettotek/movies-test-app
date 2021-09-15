@@ -39,7 +39,11 @@ function App() {
         return (
           <>
             <MovieAppBar></MovieAppBar>
-            <MovieList query={props} setPage={setPageCallback}></MovieList>
+            <MovieList
+              query={props}
+              setPage={setPageCallback}
+              page={page}
+            ></MovieList>
             <MovieBottonBar></MovieBottonBar>
           </>
         );
