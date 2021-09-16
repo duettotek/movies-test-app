@@ -8,7 +8,7 @@ import MovieAppBar from "./components/MovieAppBar";
 import MovieBottonBar from "./components/MovieBottonBar";
 
 export const query = graphql`
-  query AppQuery($first: Int!, $last: Int!) {
+  query AppQuery($after: String, $before: String, $first: Int, $last: Int) {
     ...MovieList_query
   }
 `;
@@ -18,12 +18,53 @@ interface Props {
 }
 
 function App() {
-  const [page, setPage] = useState({ first: 12, last: 12 });
+  const [page, setPage] = useState({
+    after: "",
+    before: "",
+    first: 12,
+    last: 12,
+  });
 
-  const setPageCallback = (first: number, last: number) => {
-    console.log(first + last);
-    setPage({ first, last });
+  const setPageCallback = (
+    after: string,
+    before: string,
+    first: number,
+    last: number
+  ) => {
+    setPage({ after, before, first, last });
   };
+
+  const getVaribles = () => {
+    if (page.after == "" && page.before == "") {
+      return {
+        first: page.first,
+        last: page.last,
+      };
+    }
+
+    if (page.after == "") {
+      return {
+        before: page.before,
+        last: 12,
+      };
+    }
+
+    if (page.before == "") {
+      return {
+        after: page.after,
+        first: 12,
+      };
+    }
+
+    return {
+      after: undefined,
+      before: undefined,
+      first: 12,
+      last: 12,
+    };
+  };
+
+  const variables = getVaribles();
 
   return (
     <QueryRenderer
@@ -39,16 +80,16 @@ function App() {
         return (
           <>
             <MovieAppBar></MovieAppBar>
-            <MovieList
-              query={props}
-              setPage={setPageCallback}
-              page={page}
-            ></MovieList>
+            {page ? (
+              <MovieList query={props} setPage={setPageCallback}></MovieList>
+            ) : (
+              <></>
+            )}
             <MovieBottonBar></MovieBottonBar>
           </>
         );
       }}
-      variables={{ first: page.first, last: page.last }}
+      variables={variables}
     />
   );
 }

@@ -5,11 +5,10 @@ import MovieImageList from "../components/MovieImageList";
 
 interface Props {
   query: MovieList_query | null;
-  setPage: (first: number, last: number) => void;
-  page: { first: number; last: number };
+  setPage: (after: any, before: any, first: number, last: number) => void;
 }
 
-function MovieList({ query, setPage, page }: Props) {
+function MovieList({ query, setPage }: Props) {
   if (!query) {
     return <div>Error query</div>;
   }
@@ -21,14 +20,20 @@ function MovieList({ query, setPage, page }: Props) {
 
   const movieArray = Array.from(movies.trending.edges, (node) => node?.node);
 
-  return <MovieImageList movies={movieArray} setPage={setPage} page={page} />;
+  return (
+    <MovieImageList
+      movies={movieArray}
+      setPage={setPage}
+      pageInfo={movies.trending.pageInfo}
+    />
+  );
 }
 
 export default createFragmentContainer(MovieList, {
   query: graphql`
     fragment MovieList_query on Query {
       movies {
-        trending(first: $first, last: $last) {
+        trending(after: $after, before: $before, first: $first, last: $last) {
           edges {
             node {
               ...MovieItem_movie

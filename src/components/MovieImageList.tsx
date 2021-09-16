@@ -34,11 +34,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   movies: any[];
-  setPage: (first: number, last: number) => void;
-  page: { first: number; last: number };
+  setPage: (after: any, before: any, first: number, last: number) => void;
+  pageInfo: {
+    endCursor: string | null;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    startCursor: string | null;
+  };
 }
 
-export default function MovieImageList({ movies, setPage, page }: Props) {
+export default function MovieImageList({ movies, setPage, pageInfo }: Props) {
   const classes = useStyles();
 
   if (!movies) {
@@ -46,11 +51,11 @@ export default function MovieImageList({ movies, setPage, page }: Props) {
   }
 
   const right = () => {
-    setPage(page.first + 12, 12);
+    setPage(pageInfo.endCursor, "", 12, 12);
   };
 
   const left = () => {
-    setPage(page.first - 12, 12);
+    setPage("", pageInfo.startCursor, 12, 12);
   };
 
   return (
@@ -58,7 +63,7 @@ export default function MovieImageList({ movies, setPage, page }: Props) {
       <Grid container spacing={1}>
         {movies.map((movie) =>
           movie ? (
-            <Grid container item xs={5} md={4} lg={3} xl={3} spacing={1}>
+            <Grid container item xs={5} md={4} lg={3} xl={3}>
               <Grid
                 item
                 xs={12}
@@ -75,7 +80,7 @@ export default function MovieImageList({ movies, setPage, page }: Props) {
           ) : null
         )}
       </Grid>
-      {page.first > 12 ? (
+      {pageInfo.hasPreviousPage ? (
         <Fab
           color="secondary"
           aria-label="add"
@@ -88,14 +93,18 @@ export default function MovieImageList({ movies, setPage, page }: Props) {
         <div></div>
       )}
 
-      <Fab
-        color="secondary"
-        aria-label="add"
-        className={classes.fabRight}
-        onClick={right}
-      >
-        <ChevronRightIcon />
-      </Fab>
+      {pageInfo.hasNextPage ? (
+        <Fab
+          color="secondary"
+          aria-label="add"
+          className={classes.fabRight}
+          onClick={right}
+        >
+          <ChevronRightIcon />
+        </Fab>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }
