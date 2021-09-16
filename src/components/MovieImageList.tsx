@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
       padding: 50,
+      listStyle: "none",
     },
     paper: {
       padding: theme.spacing(1),
@@ -57,7 +58,7 @@ export default function MovieImageList({ movies, setPage, page }: Props) {
       <Grid container spacing={1}>
         {movies.map((movie) =>
           movie ? (
-            <Grid container item xs={4} spacing={1}>
+            <Grid container item xs={5} md={4} lg={3} xl={3} spacing={1}>
               <Grid
                 item
                 xs={12}
