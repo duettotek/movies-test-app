@@ -6,6 +6,12 @@ import { graphql } from "babel-plugin-relay/macro";
 import MovieList from "./fragments/MovieList";
 import MovieAppBar from "./components/MovieAppBar";
 import MovieBottonBar from "./components/MovieBottonBar";
+import { Backdrop, CircularProgress, Snackbar } from "@material-ui/core";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export const query = graphql`
   query AppQuery($after: String, $before: String, $first: Int, $last: Int) {
@@ -21,46 +27,41 @@ function App() {
   const [page, setPage] = useState({
     after: "",
     before: "",
-    first: 12,
-    last: 12,
   });
 
-  const setPageCallback = (
-    after: string,
-    before: string,
-    first: number,
-    last: number
-  ) => {
-    setPage({ after, before, first, last });
+  const movieNumber = 12;
+
+  const setPageCallback = (after: string, before: string) => {
+    setPage({ after, before });
   };
 
   const getVaribles = () => {
     if (page.after == "" && page.before == "") {
       return {
-        first: page.first,
-        last: page.last,
+        first: movieNumber,
+        last: movieNumber,
       };
     }
 
     if (page.after == "") {
       return {
         before: page.before,
-        last: 12,
+        last: movieNumber,
       };
     }
 
     if (page.before == "") {
       return {
         after: page.after,
-        first: 12,
+        first: movieNumber,
       };
     }
 
     return {
       after: undefined,
       before: undefined,
-      first: 12,
-      last: 12,
+      first: movieNumber,
+      last: movieNumber,
     };
   };
 
@@ -72,10 +73,18 @@ function App() {
       query={query}
       render={({ error, props }: Props) => {
         if (error) {
-          return <div>Error!</div>;
+          return (
+            <Snackbar open={true} autoHideDuration={6000}>
+              <Alert severity="error">{error}</Alert>
+            </Snackbar>
+          );
         }
         if (!props) {
-          return <div>Loading..</div>;
+          return (
+            <Backdrop open={true}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          );
         }
         return (
           <>

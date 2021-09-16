@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   movies: any[];
-  setPage: (after: any, before: any, first: number, last: number) => void;
+  setPage: (after: string, before: string) => void;
   pageInfo: {
     endCursor: string | null;
     hasNextPage: boolean;
@@ -51,11 +51,13 @@ export default function MovieImageList({ movies, setPage, pageInfo }: Props) {
   }
 
   const right = () => {
-    setPage(pageInfo.endCursor, "", 12, 12);
+    const endCursor = pageInfo.endCursor ? pageInfo.endCursor : "";
+    setPage(endCursor, "");
   };
 
   const left = () => {
-    setPage("", pageInfo.startCursor, 12, 12);
+    const startCursor = pageInfo.startCursor ? pageInfo.startCursor : "";
+    setPage("", startCursor);
   };
 
   return (

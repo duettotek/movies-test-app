@@ -5,7 +5,7 @@ import MovieImageList from "../components/MovieImageList";
 
 interface Props {
   query: MovieList_query | null;
-  setPage: (after: any, before: any, first: number, last: number) => void;
+  setPage: (after: any, before: any) => void;
 }
 
 function MovieList({ query, setPage }: Props) {
